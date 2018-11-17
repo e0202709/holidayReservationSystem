@@ -139,9 +139,9 @@ public class PartnerModule {
         } while (!moreItem.equalsIgnoreCase("N"));
 
         try {
-            BookingEntity bookingEntity = clientStateRemoteCheckout(username, password, guest, checkInDate, checkOutDate, remoteCheckoutLineItems);
+            Long bookingEntityId = clientStateRemoteCheckout(username, password, guest, checkInDate, checkOutDate, remoteCheckoutLineItems);
 
-            System.out.println("Remote checkout completed successfully!: Sale Transaction ID: " + bookingEntity.getBookingId());
+            System.out.println("Remote checkout completed successfully!: Sale Transaction ID: " + bookingEntityId);
         } catch (ws.client.partner.InvalidLoginCredentialException_Exception | CreateNewBookingException_Exception ex) {
             System.out.println("An error has occurred while performing the client state remote checkout: " + ex.getMessage());
         }
@@ -190,12 +190,27 @@ public class PartnerModule {
 
     }
 
-    private static BookingEntity clientStateRemoteCheckout(java.lang.String username, java.lang.String password, java.lang.String guestThatWantToBookTheRoom, java.lang.String checkInDate, java.lang.String checkOutDate, java.util.List<ws.client.partner.RemoteCheckoutLineItem> remoteCheckoutLineItems) throws InvalidLoginCredentialException_Exception, CreateNewBookingException_Exception {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
+//    private static BookingEntity clientStateRemoteCheckout(java.lang.String username, java.lang.String password, java.lang.String guestThatWantToBookTheRoom, java.lang.String checkInDate, java.lang.String checkOutDate, java.util.List<ws.client.partner.RemoteCheckoutLineItem> remoteCheckoutLineItems) throws InvalidLoginCredentialException_Exception, CreateNewBookingException_Exception {
+//        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+//        // If the calling of port operations may lead to race condition some synchronization is required.
+//        ws.client.partner.PartnerWebService_Service service = new ws.client.partner.PartnerWebService_Service();
+//        ws.client.partner.PartnerWebService port = service.getPartnerWebServicePort();
+//        return port.clientStateRemoteCheckout(username, password, guestThatWantToBookTheRoom, checkInDate, checkOutDate, remoteCheckoutLineItems);
+//    }
+
+//    private static BookingEntity clientStateRemoteCheckout(java.lang.String username, java.lang.String password, java.lang.String guestThatWantToBookTheRoom, java.lang.String checkInDate, java.lang.String checkOutDate, java.util.List<ws.client.partner.RemoteCheckoutLineItem> remoteCheckoutLineItems) throws InvalidLoginCredentialException_Exception, CreateNewBookingException_Exception {
+//        ws.client.partner.PartnerWebService_Service service = new ws.client.partner.PartnerWebService_Service();
+//        ws.client.partner.PartnerWebService port = service.getPartnerWebServicePort();
+//        return port.clientStateRemoteCheckout(username, password, guestThatWantToBookTheRoom, checkInDate, checkOutDate, remoteCheckoutLineItems);
+//    }
+
+    private static Long clientStateRemoteCheckout(java.lang.String username, java.lang.String password, java.lang.String guestThatWantToBookTheRoom, java.lang.String checkInDate, java.lang.String checkOutDate, java.util.List<ws.client.partner.RemoteCheckoutLineItem> remoteCheckoutLineItems) throws InvalidLoginCredentialException_Exception, CreateNewBookingException_Exception {
         ws.client.partner.PartnerWebService_Service service = new ws.client.partner.PartnerWebService_Service();
         ws.client.partner.PartnerWebService port = service.getPartnerWebServicePort();
         return port.clientStateRemoteCheckout(username, password, guestThatWantToBookTheRoom, checkInDate, checkOutDate, remoteCheckoutLineItems);
     }
+    
+
+    
 
 }

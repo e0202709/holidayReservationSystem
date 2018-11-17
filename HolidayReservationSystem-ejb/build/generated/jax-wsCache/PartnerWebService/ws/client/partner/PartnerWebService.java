@@ -29,43 +29,6 @@ public interface PartnerWebService {
 
     /**
      * 
-     * @param password
-     * @param checkOutDate
-     * @param remoteCheckoutLineItems
-     * @param checkInDate
-     * @param guestThatWantToBookTheRoom
-     * @param username
-     * @return
-     *     returns ws.client.partner.BookingEntity
-     * @throws InvalidLoginCredentialException_Exception
-     * @throws CreateNewBookingException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "clientStateRemoteCheckout", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.ClientStateRemoteCheckout")
-    @ResponseWrapper(localName = "clientStateRemoteCheckoutResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.ClientStateRemoteCheckoutResponse")
-    @Action(input = "http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckoutRequest", output = "http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckoutResponse", fault = {
-        @FaultAction(className = InvalidLoginCredentialException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckout/Fault/InvalidLoginCredentialException"),
-        @FaultAction(className = CreateNewBookingException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckout/Fault/CreateNewBookingException")
-    })
-    public BookingEntity clientStateRemoteCheckout(
-        @WebParam(name = "username", targetNamespace = "")
-        String username,
-        @WebParam(name = "password", targetNamespace = "")
-        String password,
-        @WebParam(name = "guestThatWantToBookTheRoom", targetNamespace = "")
-        String guestThatWantToBookTheRoom,
-        @WebParam(name = "checkInDate", targetNamespace = "")
-        String checkInDate,
-        @WebParam(name = "checkOutDate", targetNamespace = "")
-        String checkOutDate,
-        @WebParam(name = "remoteCheckoutLineItems", targetNamespace = "")
-        List<RemoteCheckoutLineItem> remoteCheckoutLineItems)
-        throws CreateNewBookingException_Exception, InvalidLoginCredentialException_Exception
-    ;
-
-    /**
-     * 
      * @return
      *     returns java.util.List<ws.client.partner.RoomTypeEntity>
      */
@@ -98,6 +61,43 @@ public interface PartnerWebService {
 
     /**
      * 
+     * @param password
+     * @param checkOutDate
+     * @param remoteCheckoutLineItems
+     * @param checkInDate
+     * @param guestThatWantToBookTheRoom
+     * @param username
+     * @return
+     *     returns java.lang.Long
+     * @throws CreateNewBookingException_Exception
+     * @throws InvalidLoginCredentialException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "clientStateRemoteCheckout", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.ClientStateRemoteCheckout")
+    @ResponseWrapper(localName = "clientStateRemoteCheckoutResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.ClientStateRemoteCheckoutResponse")
+    @Action(input = "http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckoutRequest", output = "http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckoutResponse", fault = {
+        @FaultAction(className = InvalidLoginCredentialException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckout/Fault/InvalidLoginCredentialException"),
+        @FaultAction(className = CreateNewBookingException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckout/Fault/CreateNewBookingException")
+    })
+    public Long clientStateRemoteCheckout(
+        @WebParam(name = "username", targetNamespace = "")
+        String username,
+        @WebParam(name = "password", targetNamespace = "")
+        String password,
+        @WebParam(name = "guestThatWantToBookTheRoom", targetNamespace = "")
+        String guestThatWantToBookTheRoom,
+        @WebParam(name = "checkInDate", targetNamespace = "")
+        String checkInDate,
+        @WebParam(name = "checkOutDate", targetNamespace = "")
+        String checkOutDate,
+        @WebParam(name = "remoteCheckoutLineItems", targetNamespace = "")
+        List<RemoteCheckoutLineItem> remoteCheckoutLineItems)
+        throws CreateNewBookingException_Exception, InvalidLoginCredentialException_Exception
+    ;
+
+    /**
+     * 
      * @param arg0
      */
     @WebMethod
@@ -107,6 +107,34 @@ public interface PartnerWebService {
     public void persist(
         @WebParam(name = "arg0", targetNamespace = "")
         Object arg0);
+
+    /**
+     * 
+     * @param password
+     * @param roomTypeName
+     * @param username
+     * @return
+     *     returns ws.client.partner.RoomTypeEntity
+     * @throws RoomTypeNotFoundException_Exception
+     * @throws InvalidLoginCredentialException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "retrieveRoomTypeEntityByRoomTypeName", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveRoomTypeEntityByRoomTypeName")
+    @ResponseWrapper(localName = "retrieveRoomTypeEntityByRoomTypeNameResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveRoomTypeEntityByRoomTypeNameResponse")
+    @Action(input = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeNameRequest", output = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeNameResponse", fault = {
+        @FaultAction(className = InvalidLoginCredentialException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeName/Fault/InvalidLoginCredentialException"),
+        @FaultAction(className = RoomTypeNotFoundException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeName/Fault/RoomTypeNotFoundException")
+    })
+    public RoomTypeEntity retrieveRoomTypeEntityByRoomTypeName(
+        @WebParam(name = "username", targetNamespace = "")
+        String username,
+        @WebParam(name = "password", targetNamespace = "")
+        String password,
+        @WebParam(name = "roomTypeName", targetNamespace = "")
+        String roomTypeName)
+        throws InvalidLoginCredentialException_Exception, RoomTypeNotFoundException_Exception
+    ;
 
     /**
      * 
@@ -132,34 +160,6 @@ public interface PartnerWebService {
         @WebParam(name = "endDate", targetNamespace = "")
         String endDate)
         throws RoomTypeNotFoundException_Exception
-    ;
-
-    /**
-     * 
-     * @param password
-     * @param roomTypeName
-     * @param username
-     * @return
-     *     returns ws.client.partner.RoomTypeEntity
-     * @throws InvalidLoginCredentialException_Exception
-     * @throws RoomTypeNotFoundException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "retrieveRoomTypeEntityByRoomTypeName", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveRoomTypeEntityByRoomTypeName")
-    @ResponseWrapper(localName = "retrieveRoomTypeEntityByRoomTypeNameResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveRoomTypeEntityByRoomTypeNameResponse")
-    @Action(input = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeNameRequest", output = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeNameResponse", fault = {
-        @FaultAction(className = InvalidLoginCredentialException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeName/Fault/InvalidLoginCredentialException"),
-        @FaultAction(className = RoomTypeNotFoundException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeName/Fault/RoomTypeNotFoundException")
-    })
-    public RoomTypeEntity retrieveRoomTypeEntityByRoomTypeName(
-        @WebParam(name = "username", targetNamespace = "")
-        String username,
-        @WebParam(name = "password", targetNamespace = "")
-        String password,
-        @WebParam(name = "roomTypeName", targetNamespace = "")
-        String roomTypeName)
-        throws InvalidLoginCredentialException_Exception, RoomTypeNotFoundException_Exception
     ;
 
     /**
