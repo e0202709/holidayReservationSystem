@@ -69,8 +69,8 @@ public interface PartnerWebService {
      * @param username
      * @return
      *     returns java.lang.Long
-     * @throws CreateNewBookingException_Exception
      * @throws InvalidLoginCredentialException_Exception
+     * @throws CreateNewBookingException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -115,8 +115,8 @@ public interface PartnerWebService {
      * @param username
      * @return
      *     returns ws.client.partner.RoomTypeEntity
-     * @throws RoomTypeNotFoundException_Exception
      * @throws InvalidLoginCredentialException_Exception
+     * @throws RoomTypeNotFoundException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
