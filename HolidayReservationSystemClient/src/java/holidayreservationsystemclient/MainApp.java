@@ -74,7 +74,7 @@ class MainApp {
                     System.out.println("\nInvalid option, please try again!\n");
                 }
             }
-            if (response == 2) {
+            if (response == 3) {
                 break;
             }
         }

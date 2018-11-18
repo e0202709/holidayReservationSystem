@@ -3,7 +3,7 @@ Ant-Version: Apache Ant 1.9.7
 Created-By: 1.8.0_181-b13 (Oracle Corporation)
 X-COMMENT: Main-Class will be added automatically by build
 Class-Path: HolidayReservationSystemLibrary.jar lib/HolidayReservation
- SystemLibrary.jar HotelReservationSystemLibrary.jar lib/HotelReservat
- ionSystemLibrary.jar HolidayReservationSystem-ejb.jar 
+ SystemLibrary.jar HolidayReservationSystem-ejb.jar HotelReservationSy
+ stemLibrary.jar lib/HotelReservationSystemLibrary.jar 
 Main-Class: holidayreservationsystemclient.Main
 
