@@ -29,15 +29,108 @@ public interface PartnerWebService {
 
     /**
      * 
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "persist", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.Persist")
+    @ResponseWrapper(localName = "persistResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.PersistResponse")
+    @Action(input = "http://ws.session.ejb/PartnerWebService/persistRequest", output = "http://ws.session.ejb/PartnerWebService/persistResponse")
+    public void persist(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Object arg0);
+
+    /**
+     * 
+     * @param bookingId
      * @return
-     *     returns java.util.List<ws.client.partner.RoomTypeEntity>
+     *     returns java.util.List<java.lang.String>
+     * @throws BookingNotFoundException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "retrieveAllRoomTypes", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveAllRoomTypes")
-    @ResponseWrapper(localName = "retrieveAllRoomTypesResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveAllRoomTypesResponse")
-    @Action(input = "http://ws.session.ejb/PartnerWebService/retrieveAllRoomTypesRequest", output = "http://ws.session.ejb/PartnerWebService/retrieveAllRoomTypesResponse")
-    public List<RoomTypeEntity> retrieveAllRoomTypes();
+    @RequestWrapper(localName = "retrievePartnerReservationDetails", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrievePartnerReservationDetails")
+    @ResponseWrapper(localName = "retrievePartnerReservationDetailsResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrievePartnerReservationDetailsResponse")
+    @Action(input = "http://ws.session.ejb/PartnerWebService/retrievePartnerReservationDetailsRequest", output = "http://ws.session.ejb/PartnerWebService/retrievePartnerReservationDetailsResponse", fault = {
+        @FaultAction(className = BookingNotFoundException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrievePartnerReservationDetails/Fault/BookingNotFoundException")
+    })
+    public List<String> retrievePartnerReservationDetails(
+        @WebParam(name = "bookingId", targetNamespace = "")
+        Long bookingId)
+        throws BookingNotFoundException_Exception
+    ;
+
+    /**
+     * 
+     * @param password
+     * @param roomTypeName
+     * @param username
+     * @return
+     *     returns ws.client.partner.RoomTypeEntity
+     * @throws RoomTypeNotFoundException_Exception
+     * @throws InvalidLoginCredentialException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "retrieveRoomTypeEntityByRoomTypeName", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveRoomTypeEntityByRoomTypeName")
+    @ResponseWrapper(localName = "retrieveRoomTypeEntityByRoomTypeNameResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveRoomTypeEntityByRoomTypeNameResponse")
+    @Action(input = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeNameRequest", output = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeNameResponse", fault = {
+        @FaultAction(className = InvalidLoginCredentialException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeName/Fault/InvalidLoginCredentialException"),
+        @FaultAction(className = RoomTypeNotFoundException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeName/Fault/RoomTypeNotFoundException")
+    })
+    public RoomTypeEntity retrieveRoomTypeEntityByRoomTypeName(
+        @WebParam(name = "username", targetNamespace = "")
+        String username,
+        @WebParam(name = "password", targetNamespace = "")
+        String password,
+        @WebParam(name = "roomTypeName", targetNamespace = "")
+        String roomTypeName)
+        throws InvalidLoginCredentialException_Exception, RoomTypeNotFoundException_Exception
+    ;
+
+    /**
+     * 
+     * @param partnerName
+     * @return
+     *     returns java.util.List<java.lang.String>
+     * @throws PartnerNotFoundException_Exception
+     * @throws BookingNotFoundException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "retrieveAllPartnerReservationDetails", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveAllPartnerReservationDetails")
+    @ResponseWrapper(localName = "retrieveAllPartnerReservationDetailsResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveAllPartnerReservationDetailsResponse")
+    @Action(input = "http://ws.session.ejb/PartnerWebService/retrieveAllPartnerReservationDetailsRequest", output = "http://ws.session.ejb/PartnerWebService/retrieveAllPartnerReservationDetailsResponse", fault = {
+        @FaultAction(className = BookingNotFoundException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrieveAllPartnerReservationDetails/Fault/BookingNotFoundException"),
+        @FaultAction(className = PartnerNotFoundException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrieveAllPartnerReservationDetails/Fault/PartnerNotFoundException")
+    })
+    public List<String> retrieveAllPartnerReservationDetails(
+        @WebParam(name = "partnerName", targetNamespace = "")
+        String partnerName)
+        throws BookingNotFoundException_Exception, PartnerNotFoundException_Exception
+    ;
+
+    /**
+     * 
+     * @param password
+     * @param username
+     * @return
+     *     returns ws.client.partner.PartnerEntity
+     * @throws InvalidLoginCredentialException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "partnerLogin", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.PartnerLogin")
+    @ResponseWrapper(localName = "partnerLoginResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.PartnerLoginResponse")
+    @Action(input = "http://ws.session.ejb/PartnerWebService/partnerLoginRequest", output = "http://ws.session.ejb/PartnerWebService/partnerLoginResponse", fault = {
+        @FaultAction(className = InvalidLoginCredentialException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/partnerLogin/Fault/InvalidLoginCredentialException")
+    })
+    public PartnerEntity partnerLogin(
+        @WebParam(name = "username", targetNamespace = "")
+        String username,
+        @WebParam(name = "password", targetNamespace = "")
+        String password)
+        throws InvalidLoginCredentialException_Exception
+    ;
 
     /**
      * 
@@ -58,6 +151,18 @@ public interface PartnerWebService {
         String arg0)
         throws RoomRateNotFoundException_Exception
     ;
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<ws.client.partner.RoomTypeEntity>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "retrieveAllRoomTypes", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveAllRoomTypes")
+    @ResponseWrapper(localName = "retrieveAllRoomTypesResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveAllRoomTypesResponse")
+    @Action(input = "http://ws.session.ejb/PartnerWebService/retrieveAllRoomTypesRequest", output = "http://ws.session.ejb/PartnerWebService/retrieveAllRoomTypesResponse")
+    public List<RoomTypeEntity> retrieveAllRoomTypes();
 
     /**
      * 
@@ -98,46 +203,6 @@ public interface PartnerWebService {
 
     /**
      * 
-     * @param arg0
-     */
-    @WebMethod
-    @RequestWrapper(localName = "persist", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.Persist")
-    @ResponseWrapper(localName = "persistResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.PersistResponse")
-    @Action(input = "http://ws.session.ejb/PartnerWebService/persistRequest", output = "http://ws.session.ejb/PartnerWebService/persistResponse")
-    public void persist(
-        @WebParam(name = "arg0", targetNamespace = "")
-        Object arg0);
-
-    /**
-     * 
-     * @param password
-     * @param roomTypeName
-     * @param username
-     * @return
-     *     returns ws.client.partner.RoomTypeEntity
-     * @throws InvalidLoginCredentialException_Exception
-     * @throws RoomTypeNotFoundException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "retrieveRoomTypeEntityByRoomTypeName", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveRoomTypeEntityByRoomTypeName")
-    @ResponseWrapper(localName = "retrieveRoomTypeEntityByRoomTypeNameResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.RetrieveRoomTypeEntityByRoomTypeNameResponse")
-    @Action(input = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeNameRequest", output = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeNameResponse", fault = {
-        @FaultAction(className = InvalidLoginCredentialException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeName/Fault/InvalidLoginCredentialException"),
-        @FaultAction(className = RoomTypeNotFoundException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeName/Fault/RoomTypeNotFoundException")
-    })
-    public RoomTypeEntity retrieveRoomTypeEntityByRoomTypeName(
-        @WebParam(name = "username", targetNamespace = "")
-        String username,
-        @WebParam(name = "password", targetNamespace = "")
-        String password,
-        @WebParam(name = "roomTypeName", targetNamespace = "")
-        String roomTypeName)
-        throws InvalidLoginCredentialException_Exception, RoomTypeNotFoundException_Exception
-    ;
-
-    /**
-     * 
      * @param endDate
      * @param roomTypeName
      * @param startDate
@@ -160,29 +225,6 @@ public interface PartnerWebService {
         @WebParam(name = "endDate", targetNamespace = "")
         String endDate)
         throws RoomTypeNotFoundException_Exception
-    ;
-
-    /**
-     * 
-     * @param password
-     * @param username
-     * @return
-     *     returns ws.client.partner.PartnerEntity
-     * @throws InvalidLoginCredentialException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "partnerLogin", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.PartnerLogin")
-    @ResponseWrapper(localName = "partnerLoginResponse", targetNamespace = "http://ws.session.ejb/", className = "ws.client.partner.PartnerLoginResponse")
-    @Action(input = "http://ws.session.ejb/PartnerWebService/partnerLoginRequest", output = "http://ws.session.ejb/PartnerWebService/partnerLoginResponse", fault = {
-        @FaultAction(className = InvalidLoginCredentialException_Exception.class, value = "http://ws.session.ejb/PartnerWebService/partnerLogin/Fault/InvalidLoginCredentialException")
-    })
-    public PartnerEntity partnerLogin(
-        @WebParam(name = "username", targetNamespace = "")
-        String username,
-        @WebParam(name = "password", targetNamespace = "")
-        String password)
-        throws InvalidLoginCredentialException_Exception
     ;
 
 }

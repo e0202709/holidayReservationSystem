@@ -24,8 +24,10 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _BookingNotFoundException_QNAME = new QName("http://ws.session.ejb/", "BookingNotFoundException");
     private final static QName _CreateNewBookingException_QNAME = new QName("http://ws.session.ejb/", "CreateNewBookingException");
     private final static QName _InvalidLoginCredentialException_QNAME = new QName("http://ws.session.ejb/", "InvalidLoginCredentialException");
+    private final static QName _PartnerNotFoundException_QNAME = new QName("http://ws.session.ejb/", "PartnerNotFoundException");
     private final static QName _RoomRateNotFoundException_QNAME = new QName("http://ws.session.ejb/", "RoomRateNotFoundException");
     private final static QName _RoomTypeNotFoundException_QNAME = new QName("http://ws.session.ejb/", "RoomTypeNotFoundException");
     private final static QName _ClientStateRemoteCheckout_QNAME = new QName("http://ws.session.ejb/", "clientStateRemoteCheckout");
@@ -34,8 +36,12 @@ public class ObjectFactory {
     private final static QName _PartnerLoginResponse_QNAME = new QName("http://ws.session.ejb/", "partnerLoginResponse");
     private final static QName _Persist_QNAME = new QName("http://ws.session.ejb/", "persist");
     private final static QName _PersistResponse_QNAME = new QName("http://ws.session.ejb/", "persistResponse");
+    private final static QName _RetrieveAllPartnerReservationDetails_QNAME = new QName("http://ws.session.ejb/", "retrieveAllPartnerReservationDetails");
+    private final static QName _RetrieveAllPartnerReservationDetailsResponse_QNAME = new QName("http://ws.session.ejb/", "retrieveAllPartnerReservationDetailsResponse");
     private final static QName _RetrieveAllRoomTypes_QNAME = new QName("http://ws.session.ejb/", "retrieveAllRoomTypes");
     private final static QName _RetrieveAllRoomTypesResponse_QNAME = new QName("http://ws.session.ejb/", "retrieveAllRoomTypesResponse");
+    private final static QName _RetrievePartnerReservationDetails_QNAME = new QName("http://ws.session.ejb/", "retrievePartnerReservationDetails");
+    private final static QName _RetrievePartnerReservationDetailsResponse_QNAME = new QName("http://ws.session.ejb/", "retrievePartnerReservationDetailsResponse");
     private final static QName _RetrievePublishedRoomRate_QNAME = new QName("http://ws.session.ejb/", "retrievePublishedRoomRate");
     private final static QName _RetrievePublishedRoomRateResponse_QNAME = new QName("http://ws.session.ejb/", "retrievePublishedRoomRateResponse");
     private final static QName _RetrieveRoomTypeEntityByRoomTypeName_QNAME = new QName("http://ws.session.ejb/", "retrieveRoomTypeEntityByRoomTypeName");
@@ -48,6 +54,14 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link BookingNotFoundException }
+     * 
+     */
+    public BookingNotFoundException createBookingNotFoundException() {
+        return new BookingNotFoundException();
     }
 
     /**
@@ -64,6 +78,14 @@ public class ObjectFactory {
      */
     public InvalidLoginCredentialException createInvalidLoginCredentialException() {
         return new InvalidLoginCredentialException();
+    }
+
+    /**
+     * Create an instance of {@link PartnerNotFoundException }
+     * 
+     */
+    public PartnerNotFoundException createPartnerNotFoundException() {
+        return new PartnerNotFoundException();
     }
 
     /**
@@ -131,6 +153,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link RetrieveAllPartnerReservationDetails }
+     * 
+     */
+    public RetrieveAllPartnerReservationDetails createRetrieveAllPartnerReservationDetails() {
+        return new RetrieveAllPartnerReservationDetails();
+    }
+
+    /**
+     * Create an instance of {@link RetrieveAllPartnerReservationDetailsResponse }
+     * 
+     */
+    public RetrieveAllPartnerReservationDetailsResponse createRetrieveAllPartnerReservationDetailsResponse() {
+        return new RetrieveAllPartnerReservationDetailsResponse();
+    }
+
+    /**
      * Create an instance of {@link RetrieveAllRoomTypes }
      * 
      */
@@ -144,6 +182,22 @@ public class ObjectFactory {
      */
     public RetrieveAllRoomTypesResponse createRetrieveAllRoomTypesResponse() {
         return new RetrieveAllRoomTypesResponse();
+    }
+
+    /**
+     * Create an instance of {@link RetrievePartnerReservationDetails }
+     * 
+     */
+    public RetrievePartnerReservationDetails createRetrievePartnerReservationDetails() {
+        return new RetrievePartnerReservationDetails();
+    }
+
+    /**
+     * Create an instance of {@link RetrievePartnerReservationDetailsResponse }
+     * 
+     */
+    public RetrievePartnerReservationDetailsResponse createRetrievePartnerReservationDetailsResponse() {
+        return new RetrievePartnerReservationDetailsResponse();
     }
 
     /**
@@ -267,6 +321,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BookingNotFoundException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.session.ejb/", name = "BookingNotFoundException")
+    public JAXBElement<BookingNotFoundException> createBookingNotFoundException(BookingNotFoundException value) {
+        return new JAXBElement<BookingNotFoundException>(_BookingNotFoundException_QNAME, BookingNotFoundException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CreateNewBookingException }{@code >}}
      * 
      */
@@ -282,6 +345,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.session.ejb/", name = "InvalidLoginCredentialException")
     public JAXBElement<InvalidLoginCredentialException> createInvalidLoginCredentialException(InvalidLoginCredentialException value) {
         return new JAXBElement<InvalidLoginCredentialException>(_InvalidLoginCredentialException_QNAME, InvalidLoginCredentialException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PartnerNotFoundException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.session.ejb/", name = "PartnerNotFoundException")
+    public JAXBElement<PartnerNotFoundException> createPartnerNotFoundException(PartnerNotFoundException value) {
+        return new JAXBElement<PartnerNotFoundException>(_PartnerNotFoundException_QNAME, PartnerNotFoundException.class, null, value);
     }
 
     /**
@@ -357,6 +429,24 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RetrieveAllPartnerReservationDetails }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.session.ejb/", name = "retrieveAllPartnerReservationDetails")
+    public JAXBElement<RetrieveAllPartnerReservationDetails> createRetrieveAllPartnerReservationDetails(RetrieveAllPartnerReservationDetails value) {
+        return new JAXBElement<RetrieveAllPartnerReservationDetails>(_RetrieveAllPartnerReservationDetails_QNAME, RetrieveAllPartnerReservationDetails.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RetrieveAllPartnerReservationDetailsResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.session.ejb/", name = "retrieveAllPartnerReservationDetailsResponse")
+    public JAXBElement<RetrieveAllPartnerReservationDetailsResponse> createRetrieveAllPartnerReservationDetailsResponse(RetrieveAllPartnerReservationDetailsResponse value) {
+        return new JAXBElement<RetrieveAllPartnerReservationDetailsResponse>(_RetrieveAllPartnerReservationDetailsResponse_QNAME, RetrieveAllPartnerReservationDetailsResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RetrieveAllRoomTypes }{@code >}}
      * 
      */
@@ -372,6 +462,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.session.ejb/", name = "retrieveAllRoomTypesResponse")
     public JAXBElement<RetrieveAllRoomTypesResponse> createRetrieveAllRoomTypesResponse(RetrieveAllRoomTypesResponse value) {
         return new JAXBElement<RetrieveAllRoomTypesResponse>(_RetrieveAllRoomTypesResponse_QNAME, RetrieveAllRoomTypesResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RetrievePartnerReservationDetails }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.session.ejb/", name = "retrievePartnerReservationDetails")
+    public JAXBElement<RetrievePartnerReservationDetails> createRetrievePartnerReservationDetails(RetrievePartnerReservationDetails value) {
+        return new JAXBElement<RetrievePartnerReservationDetails>(_RetrievePartnerReservationDetails_QNAME, RetrievePartnerReservationDetails.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RetrievePartnerReservationDetailsResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.session.ejb/", name = "retrievePartnerReservationDetailsResponse")
+    public JAXBElement<RetrievePartnerReservationDetailsResponse> createRetrievePartnerReservationDetailsResponse(RetrievePartnerReservationDetailsResponse value) {
+        return new JAXBElement<RetrievePartnerReservationDetailsResponse>(_RetrievePartnerReservationDetailsResponse_QNAME, RetrievePartnerReservationDetailsResponse.class, null, value);
     }
 
     /**

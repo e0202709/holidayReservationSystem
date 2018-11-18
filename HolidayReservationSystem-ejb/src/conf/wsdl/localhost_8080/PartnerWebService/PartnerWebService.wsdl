@@ -4,11 +4,47 @@
 <xsd:import namespace="http://ws.session.ejb/" schemaLocation="http://localhost:8080/PartnerWebService/PartnerWebService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="retrieveAllRoomTypes">
-<part name="parameters" element="tns:retrieveAllRoomTypes"/>
+<message name="persist">
+<part name="parameters" element="tns:persist"/>
 </message>
-<message name="retrieveAllRoomTypesResponse">
-<part name="parameters" element="tns:retrieveAllRoomTypesResponse"/>
+<message name="persistResponse">
+<part name="parameters" element="tns:persistResponse"/>
+</message>
+<message name="retrievePartnerReservationDetails">
+<part name="parameters" element="tns:retrievePartnerReservationDetails"/>
+</message>
+<message name="retrievePartnerReservationDetailsResponse">
+<part name="parameters" element="tns:retrievePartnerReservationDetailsResponse"/>
+</message>
+<message name="BookingNotFoundException">
+<part name="fault" element="tns:BookingNotFoundException"/>
+</message>
+<message name="retrieveRoomTypeEntityByRoomTypeName">
+<part name="parameters" element="tns:retrieveRoomTypeEntityByRoomTypeName"/>
+</message>
+<message name="retrieveRoomTypeEntityByRoomTypeNameResponse">
+<part name="parameters" element="tns:retrieveRoomTypeEntityByRoomTypeNameResponse"/>
+</message>
+<message name="InvalidLoginCredentialException">
+<part name="fault" element="tns:InvalidLoginCredentialException"/>
+</message>
+<message name="RoomTypeNotFoundException">
+<part name="fault" element="tns:RoomTypeNotFoundException"/>
+</message>
+<message name="retrieveAllPartnerReservationDetails">
+<part name="parameters" element="tns:retrieveAllPartnerReservationDetails"/>
+</message>
+<message name="retrieveAllPartnerReservationDetailsResponse">
+<part name="parameters" element="tns:retrieveAllPartnerReservationDetailsResponse"/>
+</message>
+<message name="PartnerNotFoundException">
+<part name="fault" element="tns:PartnerNotFoundException"/>
+</message>
+<message name="partnerLogin">
+<part name="parameters" element="tns:partnerLogin"/>
+</message>
+<message name="partnerLoginResponse">
+<part name="parameters" element="tns:partnerLoginResponse"/>
 </message>
 <message name="retrievePublishedRoomRate">
 <part name="parameters" element="tns:retrievePublishedRoomRate"/>
@@ -19,32 +55,20 @@
 <message name="RoomRateNotFoundException">
 <part name="fault" element="tns:RoomRateNotFoundException"/>
 </message>
+<message name="retrieveAllRoomTypes">
+<part name="parameters" element="tns:retrieveAllRoomTypes"/>
+</message>
+<message name="retrieveAllRoomTypesResponse">
+<part name="parameters" element="tns:retrieveAllRoomTypesResponse"/>
+</message>
 <message name="clientStateRemoteCheckout">
 <part name="parameters" element="tns:clientStateRemoteCheckout"/>
 </message>
 <message name="clientStateRemoteCheckoutResponse">
 <part name="parameters" element="tns:clientStateRemoteCheckoutResponse"/>
 </message>
-<message name="InvalidLoginCredentialException">
-<part name="fault" element="tns:InvalidLoginCredentialException"/>
-</message>
 <message name="CreateNewBookingException">
 <part name="fault" element="tns:CreateNewBookingException"/>
-</message>
-<message name="persist">
-<part name="parameters" element="tns:persist"/>
-</message>
-<message name="persistResponse">
-<part name="parameters" element="tns:persistResponse"/>
-</message>
-<message name="retrieveRoomTypeEntityByRoomTypeName">
-<part name="parameters" element="tns:retrieveRoomTypeEntityByRoomTypeName"/>
-</message>
-<message name="retrieveRoomTypeEntityByRoomTypeNameResponse">
-<part name="parameters" element="tns:retrieveRoomTypeEntityByRoomTypeNameResponse"/>
-</message>
-<message name="RoomTypeNotFoundException">
-<part name="fault" element="tns:RoomTypeNotFoundException"/>
 </message>
 <message name="searchHotelRoom">
 <part name="parameters" element="tns:searchHotelRoom"/>
@@ -52,31 +76,15 @@
 <message name="searchHotelRoomResponse">
 <part name="parameters" element="tns:searchHotelRoomResponse"/>
 </message>
-<message name="partnerLogin">
-<part name="parameters" element="tns:partnerLogin"/>
-</message>
-<message name="partnerLoginResponse">
-<part name="parameters" element="tns:partnerLoginResponse"/>
-</message>
 <portType name="PartnerWebService">
-<operation name="retrieveAllRoomTypes">
-<input wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveAllRoomTypesRequest" message="tns:retrieveAllRoomTypes"/>
-<output wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveAllRoomTypesResponse" message="tns:retrieveAllRoomTypesResponse"/>
-</operation>
-<operation name="retrievePublishedRoomRate">
-<input wsam:Action="http://ws.session.ejb/PartnerWebService/retrievePublishedRoomRateRequest" message="tns:retrievePublishedRoomRate"/>
-<output wsam:Action="http://ws.session.ejb/PartnerWebService/retrievePublishedRoomRateResponse" message="tns:retrievePublishedRoomRateResponse"/>
-<fault message="tns:RoomRateNotFoundException" name="RoomRateNotFoundException" wsam:Action="http://ws.session.ejb/PartnerWebService/retrievePublishedRoomRate/Fault/RoomRateNotFoundException"/>
-</operation>
-<operation name="clientStateRemoteCheckout">
-<input wsam:Action="http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckoutRequest" message="tns:clientStateRemoteCheckout"/>
-<output wsam:Action="http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckoutResponse" message="tns:clientStateRemoteCheckoutResponse"/>
-<fault message="tns:InvalidLoginCredentialException" name="InvalidLoginCredentialException" wsam:Action="http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckout/Fault/InvalidLoginCredentialException"/>
-<fault message="tns:CreateNewBookingException" name="CreateNewBookingException" wsam:Action="http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckout/Fault/CreateNewBookingException"/>
-</operation>
 <operation name="persist">
 <input wsam:Action="http://ws.session.ejb/PartnerWebService/persistRequest" message="tns:persist"/>
 <output wsam:Action="http://ws.session.ejb/PartnerWebService/persistResponse" message="tns:persistResponse"/>
+</operation>
+<operation name="retrievePartnerReservationDetails">
+<input wsam:Action="http://ws.session.ejb/PartnerWebService/retrievePartnerReservationDetailsRequest" message="tns:retrievePartnerReservationDetails"/>
+<output wsam:Action="http://ws.session.ejb/PartnerWebService/retrievePartnerReservationDetailsResponse" message="tns:retrievePartnerReservationDetailsResponse"/>
+<fault message="tns:BookingNotFoundException" name="BookingNotFoundException" wsam:Action="http://ws.session.ejb/PartnerWebService/retrievePartnerReservationDetails/Fault/BookingNotFoundException"/>
 </operation>
 <operation name="retrieveRoomTypeEntityByRoomTypeName">
 <input wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeNameRequest" message="tns:retrieveRoomTypeEntityByRoomTypeName"/>
@@ -84,20 +92,41 @@
 <fault message="tns:InvalidLoginCredentialException" name="InvalidLoginCredentialException" wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeName/Fault/InvalidLoginCredentialException"/>
 <fault message="tns:RoomTypeNotFoundException" name="RoomTypeNotFoundException" wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveRoomTypeEntityByRoomTypeName/Fault/RoomTypeNotFoundException"/>
 </operation>
-<operation name="searchHotelRoom">
-<input wsam:Action="http://ws.session.ejb/PartnerWebService/searchHotelRoomRequest" message="tns:searchHotelRoom"/>
-<output wsam:Action="http://ws.session.ejb/PartnerWebService/searchHotelRoomResponse" message="tns:searchHotelRoomResponse"/>
-<fault message="tns:RoomTypeNotFoundException" name="RoomTypeNotFoundException" wsam:Action="http://ws.session.ejb/PartnerWebService/searchHotelRoom/Fault/RoomTypeNotFoundException"/>
+<operation name="retrieveAllPartnerReservationDetails">
+<input wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveAllPartnerReservationDetailsRequest" message="tns:retrieveAllPartnerReservationDetails"/>
+<output wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveAllPartnerReservationDetailsResponse" message="tns:retrieveAllPartnerReservationDetailsResponse"/>
+<fault message="tns:BookingNotFoundException" name="BookingNotFoundException" wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveAllPartnerReservationDetails/Fault/BookingNotFoundException"/>
+<fault message="tns:PartnerNotFoundException" name="PartnerNotFoundException" wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveAllPartnerReservationDetails/Fault/PartnerNotFoundException"/>
 </operation>
 <operation name="partnerLogin">
 <input wsam:Action="http://ws.session.ejb/PartnerWebService/partnerLoginRequest" message="tns:partnerLogin"/>
 <output wsam:Action="http://ws.session.ejb/PartnerWebService/partnerLoginResponse" message="tns:partnerLoginResponse"/>
 <fault message="tns:InvalidLoginCredentialException" name="InvalidLoginCredentialException" wsam:Action="http://ws.session.ejb/PartnerWebService/partnerLogin/Fault/InvalidLoginCredentialException"/>
 </operation>
+<operation name="retrievePublishedRoomRate">
+<input wsam:Action="http://ws.session.ejb/PartnerWebService/retrievePublishedRoomRateRequest" message="tns:retrievePublishedRoomRate"/>
+<output wsam:Action="http://ws.session.ejb/PartnerWebService/retrievePublishedRoomRateResponse" message="tns:retrievePublishedRoomRateResponse"/>
+<fault message="tns:RoomRateNotFoundException" name="RoomRateNotFoundException" wsam:Action="http://ws.session.ejb/PartnerWebService/retrievePublishedRoomRate/Fault/RoomRateNotFoundException"/>
+</operation>
+<operation name="retrieveAllRoomTypes">
+<input wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveAllRoomTypesRequest" message="tns:retrieveAllRoomTypes"/>
+<output wsam:Action="http://ws.session.ejb/PartnerWebService/retrieveAllRoomTypesResponse" message="tns:retrieveAllRoomTypesResponse"/>
+</operation>
+<operation name="clientStateRemoteCheckout">
+<input wsam:Action="http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckoutRequest" message="tns:clientStateRemoteCheckout"/>
+<output wsam:Action="http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckoutResponse" message="tns:clientStateRemoteCheckoutResponse"/>
+<fault message="tns:InvalidLoginCredentialException" name="InvalidLoginCredentialException" wsam:Action="http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckout/Fault/InvalidLoginCredentialException"/>
+<fault message="tns:CreateNewBookingException" name="CreateNewBookingException" wsam:Action="http://ws.session.ejb/PartnerWebService/clientStateRemoteCheckout/Fault/CreateNewBookingException"/>
+</operation>
+<operation name="searchHotelRoom">
+<input wsam:Action="http://ws.session.ejb/PartnerWebService/searchHotelRoomRequest" message="tns:searchHotelRoom"/>
+<output wsam:Action="http://ws.session.ejb/PartnerWebService/searchHotelRoomResponse" message="tns:searchHotelRoomResponse"/>
+<fault message="tns:RoomTypeNotFoundException" name="RoomTypeNotFoundException" wsam:Action="http://ws.session.ejb/PartnerWebService/searchHotelRoom/Fault/RoomTypeNotFoundException"/>
+</operation>
 </portType>
 <binding name="PartnerWebServicePortBinding" type="tns:PartnerWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="retrieveAllRoomTypes">
+<operation name="persist">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -105,6 +134,60 @@
 <output>
 <soap:body use="literal"/>
 </output>
+</operation>
+<operation name="retrievePartnerReservationDetails">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="BookingNotFoundException">
+<soap:fault name="BookingNotFoundException" use="literal"/>
+</fault>
+</operation>
+<operation name="retrieveRoomTypeEntityByRoomTypeName">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="InvalidLoginCredentialException">
+<soap:fault name="InvalidLoginCredentialException" use="literal"/>
+</fault>
+<fault name="RoomTypeNotFoundException">
+<soap:fault name="RoomTypeNotFoundException" use="literal"/>
+</fault>
+</operation>
+<operation name="retrieveAllPartnerReservationDetails">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="BookingNotFoundException">
+<soap:fault name="BookingNotFoundException" use="literal"/>
+</fault>
+<fault name="PartnerNotFoundException">
+<soap:fault name="PartnerNotFoundException" use="literal"/>
+</fault>
+</operation>
+<operation name="partnerLogin">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="InvalidLoginCredentialException">
+<soap:fault name="InvalidLoginCredentialException" use="literal"/>
+</fault>
 </operation>
 <operation name="retrievePublishedRoomRate">
 <soap:operation soapAction=""/>
@@ -117,6 +200,15 @@
 <fault name="RoomRateNotFoundException">
 <soap:fault name="RoomRateNotFoundException" use="literal"/>
 </fault>
+</operation>
+<operation name="retrieveAllRoomTypes">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 <operation name="clientStateRemoteCheckout">
 <soap:operation soapAction=""/>
@@ -133,30 +225,6 @@
 <soap:fault name="CreateNewBookingException" use="literal"/>
 </fault>
 </operation>
-<operation name="persist">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="retrieveRoomTypeEntityByRoomTypeName">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="InvalidLoginCredentialException">
-<soap:fault name="InvalidLoginCredentialException" use="literal"/>
-</fault>
-<fault name="RoomTypeNotFoundException">
-<soap:fault name="RoomTypeNotFoundException" use="literal"/>
-</fault>
-</operation>
 <operation name="searchHotelRoom">
 <soap:operation soapAction=""/>
 <input>
@@ -167,18 +235,6 @@
 </output>
 <fault name="RoomTypeNotFoundException">
 <soap:fault name="RoomTypeNotFoundException" use="literal"/>
-</fault>
-</operation>
-<operation name="partnerLogin">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="InvalidLoginCredentialException">
-<soap:fault name="InvalidLoginCredentialException" use="literal"/>
 </fault>
 </operation>
 </binding>

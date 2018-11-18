@@ -9,13 +9,21 @@ import entity.Partner;
 import entity.PartnerEntity;
 import java.util.Scanner;
 import ejb.session.stateless.PartnerControllerRemote;
+import entity.Booking;
 import entity.RoomType;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.exception.RoomTypeNotFoundException;
 import ws.client.partner.BookingEntity;
+import ws.client.partner.BookingNotFoundException_Exception;
 import ws.client.partner.CreateNewBookingException_Exception;
 import ws.client.partner.InvalidLoginCredentialException_Exception;
+import ws.client.partner.PartnerNotFoundException_Exception;
 import ws.client.partner.RemoteCheckoutLineItem;
 
 /**
@@ -93,7 +101,6 @@ public class PartnerModule {
         String password = sc.nextLine().trim();
         System.out.println("Enter guest name >");
         String guest = sc.nextLine().trim();
-
         System.out.print("Would you like to search for available rooms first? (Y/N)> ");
         String yesNo = sc.nextLine().trim();
         if (yesNo.equalsIgnoreCase("Y")) {
@@ -117,29 +124,36 @@ public class PartnerModule {
             RemoteCheckoutLineItem remoteCheckoutLineItem = new RemoteCheckoutLineItem();
             System.out.print("Enter Room Type Name > ");
             String roomTypeName = sc.nextLine().trim();
-            remoteCheckoutLineItem.setRoomTypeName(roomTypeName);
-            remoteCheckoutLineItem.setQuantity(1);
-            System.out.print("Enter the number of rooms you would like to book for this room type: " + roomTypeName + "> ");
-            numOfRooms = sc.nextInt();
+            int numOfRoomsLeft = partnerControllerRemote.searchForHotelRoom(roomTypeName, checkInDate, checkOutDate);
+            if (numOfRoomsLeft == 0) {
+                System.out.println(roomTypeName + " room is not available for booking!");
+                return;
+            } else {
+                remoteCheckoutLineItem.setRoomTypeName(roomTypeName);
+                remoteCheckoutLineItem.setQuantity(1);
+                System.out.print("Enter the number of rooms you would like to book for this room type: " + roomTypeName + "> ");
+                numOfRooms = sc.nextInt();
 
-            if (numOfRooms > 0) {
-                while (numOfRooms > 0) {
-                    remoteCheckoutLineItems.add(remoteCheckoutLineItem);
-                    numOfRooms--;
+                if (numOfRooms > 0) {
+                    while (numOfRooms > 0) {
+                        remoteCheckoutLineItems.add(remoteCheckoutLineItem);
+                        numOfRooms--;
+                    }
+
+                } else {
+                    System.out.println("Invalid number of rooms! \n");
                 }
 
-            } else {
-                System.out.println("Invalid number of rooms! \n");
+                sc.nextLine().trim();
+
+                System.out.print("Would you like to book another type of hotel room? (Enter 'N' to complete checkout)> ");
+                moreItem = sc.nextLine().trim();
             }
-
-            sc.nextLine().trim();
-
-            System.out.print("Would you like to book another type of hotel room? (Enter 'N' to complete checkout)> ");
-            moreItem = sc.nextLine().trim();
         } while (!moreItem.equalsIgnoreCase("N"));
 
         try {
             Long bookingEntityId = clientStateRemoteCheckout(username, password, guest, checkInDate, checkOutDate, remoteCheckoutLineItems);
+     
 
             System.out.println("Remote checkout completed successfully!: Sale Transaction ID: " + bookingEntityId);
         } catch (ws.client.partner.InvalidLoginCredentialException_Exception | CreateNewBookingException_Exception ex) {
@@ -149,11 +163,53 @@ public class PartnerModule {
     }
 
     private void doViewMyReservationDetails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n> > >  HoRS Reservation Client :: View My Reservation Details  < < <\n");
+        System.out.print("Enter Booking ID> "); 
+        Long bookingId = sc.nextLong();
+        sc.nextLine();
+     
+        try {
+            List<String> newList = retrievePartnerReservationDetails(bookingId);
+            System.out.printf("%20s%20s%20s\n", "Booking Line No", "Room Type", "SubTotal");
+            int count = 1;
+            BigDecimal total = new BigDecimal(BigInteger.ZERO);
+            for (int i = 0; i < newList.size(); i+=3) {
+                System.out.printf("%20s%20s%20s\n", count, newList.get(i+1), NumberFormat.getCurrencyInstance().format(new BigDecimal(newList.get(i+2))));
+                total = total.add(new BigDecimal(newList.get(i+2)));
+                count++;              
+            }
+            System.out.println("Total Amount = " + NumberFormat.getCurrencyInstance().format(total));
+        } catch (BookingNotFoundException_Exception ex) {
+            System.out.println("Booking cannot be found!");
+        }
+        
+        
     }
 
     private void doViewAllMyReservations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Scanner sc = new Scanner(System.in);
+        System.out.println("\n> > >  HoRS Reservation Client :: View All My Reservation Details  < < <\n");
+        System.out.print("Enter Partner Name > "); 
+        String partnerName = sc.nextLine().trim();
+       
+        try{
+            List<String> newList = retrieveAllPartnerReservationDetails(partnerName);
+            System.out.printf("%20s%20s%20s\n", "Booking Line No", "Room Type", "SubTotal");
+            int count = 1;
+            BigDecimal total = new BigDecimal(BigInteger.ZERO);
+            for (int i = 0; i < newList.size(); i+=2) {
+                  System.out.printf("%20s%20s%20s\n", count, newList.get(i), NumberFormat.getCurrencyInstance().format(new BigDecimal(newList.get(i+1))));
+                total = total.add(new BigDecimal(newList.get(i+1)));
+                count++; 
+        }
+            System.out.println("Total Amount = " + NumberFormat.getCurrencyInstance().format(total));
+    }   catch (BookingNotFoundException_Exception ex) {
+           System.out.println("Booking cannot be found!");
+        } catch (PartnerNotFoundException_Exception ex) {
+             System.out.println("Partner cannot be found!");
+        }
     }
 
     private void doSearch() throws RoomTypeNotFoundException {
@@ -209,8 +265,22 @@ public class PartnerModule {
         ws.client.partner.PartnerWebService port = service.getPartnerWebServicePort();
         return port.clientStateRemoteCheckout(username, password, guestThatWantToBookTheRoom, checkInDate, checkOutDate, remoteCheckoutLineItems);
     }
-    
 
+    private static java.util.List<java.lang.String> retrievePartnerReservationDetails(java.lang.Long bookingId) throws BookingNotFoundException_Exception {
+        ws.client.partner.PartnerWebService_Service service = new ws.client.partner.PartnerWebService_Service();
+        ws.client.partner.PartnerWebService port = service.getPartnerWebServicePort();
+        return port.retrievePartnerReservationDetails(bookingId);
+    }
+
+    private static java.util.List<java.lang.String> retrieveAllPartnerReservationDetails(java.lang.String partnerName) throws BookingNotFoundException_Exception, PartnerNotFoundException_Exception {
+        ws.client.partner.PartnerWebService_Service service = new ws.client.partner.PartnerWebService_Service();
+        ws.client.partner.PartnerWebService port = service.getPartnerWebServicePort();
+        return port.retrieveAllPartnerReservationDetails(partnerName);
+    }
+
+  
+    
+    
     
 
 }

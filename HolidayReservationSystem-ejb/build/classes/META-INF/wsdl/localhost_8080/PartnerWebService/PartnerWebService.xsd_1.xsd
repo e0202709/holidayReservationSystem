@@ -1,8 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://ws.session.ejb/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://ws.session.ejb/">
 
+<xs:element name="BookingNotFoundException" type="tns:BookingNotFoundException"/>
+
 <xs:element name="CreateNewBookingException" type="tns:CreateNewBookingException"/>
 
 <xs:element name="InvalidLoginCredentialException" type="tns:InvalidLoginCredentialException"/>
+
+<xs:element name="PartnerNotFoundException" type="tns:PartnerNotFoundException"/>
 
 <xs:element name="RoomRateNotFoundException" type="tns:RoomRateNotFoundException"/>
 
@@ -20,9 +24,17 @@
 
 <xs:element name="persistResponse" type="tns:persistResponse"/>
 
+<xs:element name="retrieveAllPartnerReservationDetails" type="tns:retrieveAllPartnerReservationDetails"/>
+
+<xs:element name="retrieveAllPartnerReservationDetailsResponse" type="tns:retrieveAllPartnerReservationDetailsResponse"/>
+
 <xs:element name="retrieveAllRoomTypes" type="tns:retrieveAllRoomTypes"/>
 
 <xs:element name="retrieveAllRoomTypesResponse" type="tns:retrieveAllRoomTypesResponse"/>
+
+<xs:element name="retrievePartnerReservationDetails" type="tns:retrievePartnerReservationDetails"/>
+
+<xs:element name="retrievePartnerReservationDetailsResponse" type="tns:retrievePartnerReservationDetailsResponse"/>
 
 <xs:element name="retrievePublishedRoomRate" type="tns:retrievePublishedRoomRate"/>
 
@@ -182,6 +194,24 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="retrievePartnerReservationDetails">
+<xs:sequence>
+<xs:element name="bookingId" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="retrievePartnerReservationDetailsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="BookingNotFoundException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="retrieveRoomTypeEntityByRoomTypeName">
 <xs:sequence>
 <xs:element name="username" type="xs:string" minOccurs="0"/>
@@ -262,6 +292,24 @@
 
 <xs:complexType name="persistResponse">
 <xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="retrieveAllPartnerReservationDetails">
+<xs:sequence>
+<xs:element name="partnerName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="retrieveAllPartnerReservationDetailsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="PartnerNotFoundException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
 </xs:complexType>
 
 <xs:simpleType name="rateTypeEnum">
